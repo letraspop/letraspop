@@ -144,7 +144,7 @@ $(document).ready(function () {
   $(document).on('click', '.descargar', function () {
     var el = $(this).parent().parent().parent(), id = el.attr('yt');
     $('.descarga').remove();
-    $('<div>', { 'class': 'descarga' }).appendTo(el).html('<iframe style="width:100%;height:90px;" src="//www.yt2mp3s.me/api/button/mp3/' + id + '" style="" frameborder="0" scrolling="no"></iframe>');
+    $('<div>', { 'class': 'descarga' }).appendTo(el).html('<iframe style="width:100%;height:90px;" src="//youtube-mp3-download1.p.rapidapi.com/dl?id=' + id + '" style="" frameborder="0" scrolling="no"></iframe>');
 
     return false;
   });
