@@ -1,4 +1,5 @@
-var list, volumen = 100, rand, repeat, calidad = 'small';
+var list, volumen = 100,
+  rand, repeat, calidad = 'small';
 
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
@@ -8,10 +9,16 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player, time_update_interval = 0;
 
 function onYouTubeIframeAPIReady() {
-  player = new YT.Player('video', { events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange } });
+  player = new YT.Player('video', {
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
 }
 
 var err = 0;
+
 function onPlayerStateChange(event) {
   player.setPlaybackQuality(calidad);
   player.setVolume(volumen);
@@ -26,6 +33,7 @@ function onPlayerStateChange(event) {
       break;
   }
 }
+
 function onPlayerReady() {
   player.playVideo();
   player.addEventListener('onStateChange', function (e) {
@@ -42,13 +50,17 @@ function onPlayerReady() {
 
 function new_play(video) {
   if (typeof (video) != "undefined") {
-    player.loadVideoById({ 'videoId': video, 'suggestedQuality': calidad });
+    player.loadVideoById({
+      'videoId': video,
+      'suggestedQuality': calidad
+    });
     player.setVolume(volumen);
   }
 }
 
 
 var timeout;
+
 function onPlay() {
   console.log(list.find('li.playing'));
   play(list.find('li.playing'));
@@ -122,9 +134,15 @@ $(document).ready(function () {
   /* menu movil */
 
   $(document).on('click', '#bb', function () {
-    var el = $(this), m = $('#mm');
-    if (el.hasClass('abierto')) { m.slideUp(); el.removeAttr('class').find('i').attr('class', 'fa fa-bars'); }
-    else { m.slideDown(); el.addClass('abierto').find('i').attr('class', 'fa fa-times'); }
+    var el = $(this),
+      m = $('#mm');
+    if (el.hasClass('abierto')) {
+      m.slideUp();
+      el.removeAttr('class').find('i').attr('class', 'fa fa-bars');
+    } else {
+      m.slideDown();
+      el.addClass('abierto').find('i').attr('class', 'fa fa-times');
+    }
     return false;
   });
 
@@ -134,25 +152,39 @@ $(document).ready(function () {
   list = $('.youtube');
 
   $(document).on('click', '.youtube li .btn .play', function () {
-    var li = $(this).parent().parent().parent(), id = li.attr('yt');
+    var li = $(this).parent().parent().parent(),
+      id = li.attr('yt');
     console.log(id, '>... play');
 
     play(li, id);
     return false;
   });
 
-  $(document).on('click', '.descargar', function () {
-    var el = $(this).parent().parent().parent(), id = el.attr('yt');
+  /* $(document).on('click', '.descargar', function () {
+    var el = $(this).parent().parent().parent(),
+      id = el.attr('yt');
     $('.descarga').remove();
-    $('<div>', { 'class': 'descarga' }).appendTo(el).html('<iframe style="width:100%;height:90px;" src="//dl.pazyvidaradio.com/buttons/' + id + '" style="" frameborder="0" scrolling="no"></iframe>');
+    $('<div>', {
+      'class': 'descarga'
+    }).appendTo(el).html('<iframe style="width:100%;height:90px;" src="//dl.pazyvidaradio.com/buttons/' + id + '" style="" frameborder="0" scrolling="no"></iframe>');
+
+    return false;
+  }); */
+
+  $(document).on('click', '.descargar', function () {
+    var el = $(this).parent().parent().parent(),
+      id = el.attr('yt');
+    $('.descarga').remove();
+    $('<div>', {
+      'class': 'descarga'
+    }).appendTo(el).html('<iframe style="width:100%;height:90px;" src="https://api.vevioz.com/@api/button/mp3/' + id + '" style="" frameborder="0" scrolling="no"></iframe>');
 
     return false;
   });
 
   $(document).on('click', '.pausar', function () {
-
-
-    var el = $(this), texto = el.find('b');
+    var el = $(this),
+      texto = el.find('b');
     if (texto.text() == 'Detener') {
       console.log('pause');
       player.pauseVideo();
@@ -176,9 +208,13 @@ $(document).ready(function () {
 
 
   $(document).on('click', 'nav > .fa', function () {
-    var n = $(this), m = n.parent().find('ul');
-    if (!m.is(':visible')) { m.slideDown('fast'); }
-    else { m.slideUp('fast'); }
+    var n = $(this),
+      m = n.parent().find('ul');
+    if (!m.is(':visible')) {
+      m.slideDown('fast');
+    } else {
+      m.slideUp('fast');
+    }
   });
 
   $(window).resize(function () {
