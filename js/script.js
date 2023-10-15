@@ -177,7 +177,7 @@ $(document).ready(function () {
     $('.descarga').remove();
     $('<div>', {
       'class': 'descarga'
-    }).appendTo(el).html('<iframe style="width:100%;height:90px;" src="https://api.vevioz.com/@api/button/mp3/' + id + '" style="" frameborder="0" scrolling="no"></iframe>');
+    }).appendTo(el).html('<iframe style="width:100%;height:90px;" src="https://api.download-lagu-mp3.com/@api/button/' + id + '" style="" frameborder="0" scrolling="no"></iframe>');
 
     return false;
   });
